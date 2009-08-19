@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<product productid="antishoutadvanced" active="1">
+	<title>Advanced Antishout (Unicode)</title>
+	<description>Antishout with multiple language support</description>
+	<version>0.3</version>
+	<url />
+	<versioncheckurl />
+	<dependencies>
+	</dependencies>
+	<codes>
+	</codes>
+	<templates>
+	</templates>
+	<plugins>
+		<plugin active="1" executionorder="1">
+			<title>Check</title>
+			<hookname>editpost_update_process</hookname>
+			<phpcode><![CDATA[if( $vbulletin->options['antishoutadvanced']
+    && $vbulletin->GPC['title'] )
+{
+  $ash_text =& $edit['title'];
+
+  // case pattern
+  $ash_case_pattern =
+    "["
+    . mb_ereg_replace(
+        "[\n\t\r\s]",
+        "",
+        $vbulletin->options['antishoutadvanced_letters'],
+        'm'
+      )
+    . "]{"
+    . $vbulletin->options['antishoutadvanced_num']
+    . ",}";
+
+  if( mb_ereg( $ash_case_pattern, $ash_text ) )
+  {
+    $ash_text = mb_strtolower( $ash_text );
+  }
+
+  // other patterns
+  $ash_patterns = array(
+      "/\?+/",
+      "/\!+/",
+      "/\.\.\.+/",
+      "/^\!+/",
+      "/^ +/",
+      "/ +$/",
+    );
+
+  $ash_replaces = array(
+      "?",
+      "!",
+      "...",
+      "",
+      "",
+      "",
+    );
+
+  $ash_text = preg_replace(
+      $ash_patterns,
+      $ash_replaces,
+      $ash_text
+    );
+
+  unset( $ash_text );
+}]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="1">
+			<title>Check</title>
+			<hookname>newreply_post_start</hookname>
+			<phpcode><![CDATA[if( $vbulletin->options['antishoutadvanced']
+    && $vbulletin->GPC['title'] )
+{
+  $ash_text =& $vbulletin->GPC['title'];
+
+  // case pattern
+  $ash_case_pattern =
+    "["
+    . mb_ereg_replace(
+        "[\n\t\r\s]",
+        "",
+        $vbulletin->options['antishoutadvanced_letters'],
+        'm'
+      )
+    . "]{"
+    . $vbulletin->options['antishoutadvanced_num']
+    . ",}";
+
+  if( mb_ereg( $ash_case_pattern, $ash_text ) )
+  {
+    $ash_text = mb_strtolower( $ash_text );
+  }
+
+  // other patterns
+  $ash_patterns = array(
+      "/\?+/",
+      "/\!+/",
+      "/\.\.\.+/",
+      "/^\!+/",
+      "/^ +/",
+      "/ +$/",
+    );
+
+  $ash_replaces = array(
+      "?",
+      "!",
+      "...",
+      "",
+      "",
+      "",
+    );
+
+  $ash_text = preg_replace(
+      $ash_patterns,
+      $ash_replaces,
+      $ash_text
+    );
+
+  unset( $ash_text );
+}]]></phpcode>
+		</plugin>
+		<plugin active="1" executionorder="1">
+			<title>Check</title>
+			<hookname>newthread_post_start</hookname>
+			<phpcode><![CDATA[if( $vbulletin->options['antishoutadvanced']
+    && $vbulletin->GPC['subject'] )
+{
+  $ash_text =& $vbulletin->GPC['subject'];
+
+  // case pattern
+  $ash_case_pattern =
+    "["
+    . mb_ereg_replace(
+        "[\n\t\r\s]",
+        "",
+        $vbulletin->options['antishoutadvanced_letters'],
+        'm'
+      )
+    . "]{"
+    . $vbulletin->options['antishoutadvanced_num']
+    . ",}";
+
+  if( mb_ereg( $ash_case_pattern, $ash_text ) )
+  {
+    $ash_text = mb_strtolower( $ash_text );
+  }
+
+  // other patterns
+  $ash_patterns = array(
+      "/\?+/",
+      "/\!+/",
+      "/\.\.\.+/",
+      "/^\!+/",
+      "/^ +/",
+      "/ +$/",
+    );
+
+  $ash_replaces = array(
+      "?",
+      "!",
+      "...",
+      "",
+      "",
+      "",
+    );
+
+  $ash_text = preg_replace(
+      $ash_patterns,
+      $ash_replaces,
+      $ash_text
+    );
+
+  unset( $ash_text );
+}]]></phpcode>
+		</plugin>
+	</plugins>
+	<phrases>
+		<phrasetype name="vBulletin Settings" fieldname="vbsettings">
+			<phrase name="setting_antishoutadvanced_desc" date="0" username="" version="0.2"><![CDATA[Switches on or off advanced stopshouting engine
+Default engine should be turned OFF (0) for the best work.]]></phrase>
+			<phrase name="setting_antishoutadvanced_letters_desc" date="0" username="" version="0.2"><![CDATA[Add capital letters of your language to english ones. Those will be  used in antishout check.]]></phrase>
+			<phrase name="setting_antishoutadvanced_letters_title" date="0" username="" version="0.2"><![CDATA[Letter scope for stopsouting advanced]]></phrase>
+			<phrase name="setting_antishoutadvanced_num_desc" date="0" username="" version="0.2"><![CDATA[If title contains word with more than XX letters, all title will be  converted to lower case.]]></phrase>
+			<phrase name="setting_antishoutadvanced_num_title" date="0" username="" version="0.2"><![CDATA[Sensitivity]]></phrase>
+			<phrase name="setting_antishoutadvanced_title" date="0" username="" version="0.2"><![CDATA[Enable advanced antishout]]></phrase>
+		</phrasetype>
+	</phrases>
+	<options>
+		<settinggroup name="posting" displayorder="310">
+			<setting varname="antishoutadvanced" displayorder="62">
+				<datatype>boolean</datatype>
+				<optioncode>yesno</optioncode>
+				<defaultvalue>0</defaultvalue>
+			</setting>
+			<setting varname="antishoutadvanced_letters" displayorder="64">
+				<datatype>free</datatype>
+				<optioncode>textarea</optioncode>
+				<defaultvalue>ABCDEFGHIJKLMNOPQRSTUVWXYZ</defaultvalue>
+			</setting>
+			<setting varname="antishoutadvanced_num" displayorder="66">
+				<datatype>integer</datatype>
+				<defaultvalue>4</defaultvalue>
+			</setting>
+		</settinggroup>
+	</options>
+	<helptopics>
+	</helptopics>
+	<cronentries>
+	</cronentries>
+	<faqentries>
+	</faqentries>
+	<templateedits>
+	</templateedits>
+</product>
