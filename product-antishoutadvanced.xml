@@ -4,8 +4,13 @@
 	<title>Advanced Antishout (Unicode)</title>
 	<description>Antishout with multiple language support</description>
 	<version>0.3</version>
-	<url />
-	<versioncheckurl />
+	<url><![CDATA[http://www.vbulletin.org/forum/misc.php?do=producthelp&pid=antishoutadvanced]]></url>
+	<versioncheckurl><![CDATA[http://www.vbulletin.org/forum/misc.php?do=productcheck&pid=antishoutadvanced]]></versioncheckurl>
+	<apm_releasedate>0</apm_releasedate>
+	<apm_author />
+	<apm_relatedurl />
+	<apm_extrainfo />
+	<apm_extraedit />
 	<dependencies>
 	</dependencies>
 	<codes>
